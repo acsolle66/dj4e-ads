@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="dj4e" content="eae25100987bd583d3ff4a9dda70b4e6" />
     <meta name="dj4e-code" content="9999999942172413711402" />
-    <title>Atti's ad site</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>Atti's Ad Site</title>
   </head>
-  <body></body>
+  <body>
+    {% include "navbar.html" %}
+    {% block content %}
+    {% endblock  %}
+  </body>
 </html>
