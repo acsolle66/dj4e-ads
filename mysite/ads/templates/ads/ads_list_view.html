@@ -1,1 +1,8 @@
-<h1>Hello from ads</h1>
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  <div style="width: 75%; margin: auto;">
+    <h1 style="text-align: start;">Ads 1.0</h1>
+    <p>There are no ads in the database.</p>
+  </div>
+{% endblock %}

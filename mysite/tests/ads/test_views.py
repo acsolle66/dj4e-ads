@@ -7,7 +7,7 @@ class HomeViewTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.VIEW_URL: str = "/ads"
-        cls.URL_NAMESPACE: str = "ads:ads_list_view"
+        cls.URL_NAMESPACE: str = "ads:ads_list"
         cls.USED_TEMPLATE: str = "ads/ads_list_view.html"
 
     def test_url_exists_at_correct_location(self) -> None:
