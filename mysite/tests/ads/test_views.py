@@ -2,11 +2,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-class HomeViewTest(TestCase):
+class AdsListgiViewTest(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.VIEW_URL: str = "/ads"
+        cls.VIEW_URL: str = "/ads/"
         cls.URL_NAMESPACE: str = "ads:ads_list"
         cls.USED_TEMPLATE: str = "ads/ads_list_view.html"
 
