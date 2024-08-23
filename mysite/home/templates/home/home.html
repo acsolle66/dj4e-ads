@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div style="width: 80%; margin: auto;">
-    <h1 style="text-align: center;">HOMEPAGE</h1>
+  {% include 'navbar.html' %}
+  <div style="width: 75%; margin: auto;">
+    <h1 style="text-align: start;">Ads 1.0</h1>
+    <ul style="list-style-type: square;">
+      <li>
+        <a href="{% url 'ads:ads_list' %}">Ads</a>
+      </li>
+    </ul>
   </div>
 {% endblock %}
