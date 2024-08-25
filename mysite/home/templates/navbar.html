@@ -12,10 +12,7 @@
         <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">{{ user }}</a>
         <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 0; border-color: black;">
           <li>
-            <form action="{% url 'logout' %}" method="post">
-              {% csrf_token %}
-              <button type="submit" style="background: none; border: none; outline: none; box-shadow: none;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Log Out</button>
-            </form>
+              <a class="text-decoration-none" style="color: #414a4c" href="{% url 'logout' %}" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Logout</a>
           </li>
         </ul>
       </div>
