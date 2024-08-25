@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  <div style="width: 40%; margin: auto;">
+    <div class="card">
+      <div class="card-body">
+        <span style="float: right;font-size: small;">
+          ({{ ad.created_at|timesince }} ago){% if ad.owner == user %}
+            <a href="{% url 'ads:ad_update' ad.pk %}">Update</a> | <a href="{% url 'ads:ad_delete' ad.pk %}">Delete</a>
+          {% endif %}
+        </span>
+        <h1>{{ ad.title }}</h1>
+        <p>{{ ad.text }}</p>
+        <p>Price: ${{ ad.price }}</p>
+        <a href="/ads" class="btn btn-secondary">Back</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -8,18 +8,19 @@
     </ul>
     {% if user.is_authenticated %}
       <div class="nav-item dropdown">
-        <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent">{{ user }}</a>
+        <a class="me-3 text-decoration-none" href="{% url 'ads:ads_create' %}" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">Create Ad</a>
+        <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">{{ user }}</a>
         <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 0; border-color: black;">
           <li>
             <form action="{% url 'logout' %}" method="post">
               {% csrf_token %}
-              <button type="submit" style="background: none; border: none; outline: none; box-shadow: none;">Log Out</button>
+              <button type="submit" style="background: none; border: none; outline: none; box-shadow: none;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Log Out</button>
             </form>
           </li>
         </ul>
       </div>
     {% else %}
-      <a class="navbar-brand" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'" href="{% url 'login' %}">Login</a>
+      <a class="navbar-brand" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'" href="{% url 'home:login' %}">Login</a>
     {% endif %}
   </div>
 </nav>

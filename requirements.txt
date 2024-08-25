@@ -1,12 +1,14 @@
 asgiref==3.8.1
 beautifulsoup4==4.12.3
-dj-database-url==2.2.0
-dj-email-url==1.0.6
+crispy-bootstrap4==2024.1
+crispy-bootstrap5==2024.2
 Django==4.2.15
 django-bootstrap-v5==1.0.11
-django-cache-url==3.4.5
+django-crispy-forms==2.3
 environs==11.0.0
 marshmallow==3.22.0
+mypy==1.11.1
+mypy-extensions==1.0.0
 packaging==24.1
 python-dotenv==1.0.1
 soupsieve==2.6

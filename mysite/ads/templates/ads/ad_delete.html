@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  {% load crispy_forms_tags %}
+  <div style="width: 40%; margin: auto;">
+    <p>Are you sure you want to delete the ad: {{ ad.title }}</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-primary" value="Submit" />
+      <a href="/ads" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
