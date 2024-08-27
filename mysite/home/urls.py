@@ -7,5 +7,5 @@ app_name = "home"
 
 urlpatterns = [
     path("", ads_list_view, name="home"),
-    path("login/", views.login_view, name="login"),
+    path("accounts/login/", views.login_view, name="login"),
 ]
