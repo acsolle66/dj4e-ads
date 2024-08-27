@@ -2,20 +2,20 @@
 {% block content %}
   {% include 'navbar.html' %}
   {% load crispy_forms_tags %}
-  <div style="width: 40%; margin: auto;">
-    {% if form_error_msg %}
-      <p style="color: red;">Your username and password didn't match. Please try again.</p>
-    {% endif %}
+  <div class="d-flex justify-content-center">
+    <div>
+      {% if form_error_msg %}
+        <p style="color: red;">Your username and password didn't match. Please try again.</p>
+      {% endif %}
 
-    <form method="post" action="{% url 'home:login' %}">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <input type="submit" class="btn btn-primary" value="Login" />
-      <input type="hidden" name="next" value="{% url 'ads:ads_list' %}" />
-    </form>
-    <p class="mt-2">
-      Login with
-      <a href="{% url 'social:begin' 'github' %}">GitHub</a>
-    </p>
+      <form method="post" action="{% url 'home:login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Login Locally" />
+        <input type="hidden" name="next" value="{% url 'ads:ads_list' %}" />
+      </form>
+      <hr class="divider" />
+      <a class="btn btn-info" role="button" href="{% url 'social:begin' 'github' %}"><i class="bi bi-github me-2"></i>Login with GitHub</a>
+    </div>
   </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg shadow-sm" style="width: 75%;margin: 10px auto; background-color: #414a4c;">
+<nav class="navbar navbar-expand-lg shadow-sm mb-3" style="background-color: #123524;">
   <div class="container-fluid justify-content-between">
     <a class="navbar-brand" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'" href="{% url 'ads:ads_list' %}">AdsList</a>
     <ul class="navbar-nav">
@@ -8,11 +8,16 @@
     </ul>
     {% if user.is_authenticated %}
       <div class="nav-item dropdown">
-        <a class="me-3 text-decoration-none" href="{% url 'ads:ads_create' %}" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">Create Ad</a>
         <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">{{ user }}</a>
-        <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 0; border-color: black;">
+        <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 5px; border-color: black;">
           <li>
-              <a class="text-decoration-none" style="color: #414a4c" href="{% url 'logout' %}" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Logout</a>
+            <a class="dropdown-item text-decoration-none" href="{% url 'ads:ads_create' %}" style="color: #414a4c;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Create Ad</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <a class="dropdown-item text-decoration-none" style="color: #414a4c" href="{% url 'logout' %}" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Logout</a>
           </li>
         </ul>
       </div>

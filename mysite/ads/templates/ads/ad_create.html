@@ -2,7 +2,7 @@
 {% block content %}
   {% include 'navbar.html' %}
   {% load crispy_forms_tags %}
-  <div style="width: 40%; margin: auto;">
+  <div class="d-flex justify-content-center">
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
