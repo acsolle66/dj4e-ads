@@ -2,13 +2,13 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-class AdsListgiViewTest(TestCase):
+class AdsListViewTest(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
         cls.VIEW_URL: str = "/ads/"
         cls.URL_NAMESPACE: str = "ads:ads_list"
-        cls.USED_TEMPLATE: str = "ads/ads_list_view.html"
+        cls.USED_TEMPLATE: str = "ads/ads_list.html"
 
     def test_url_exists_at_correct_location(self) -> None:
         self.assertEqual(self.client.get(self.VIEW_URL).status_code, 200)

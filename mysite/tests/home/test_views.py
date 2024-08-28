@@ -8,7 +8,7 @@ class HomeViewTest(TestCase):
     def setUpTestData(cls) -> None:
         cls.VIEW_URL: str = "/"
         cls.URL_NAMESPACE: str = "home:home"
-        cls.USED_TEMPLATE: str = "home/home.html"
+        cls.USED_TEMPLATE: str = "ads/ads_list.html"
 
     def test_url_exists_at_correct_location(self) -> None:
         self.assertEqual(self.client.get(self.VIEW_URL).status_code, 200)
