@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-from email.policy import default
 from pathlib import Path
 from environs import Env
 
@@ -89,12 +88,27 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if env.bool("LOCAL", default=False):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": env.str("DB_NAME"),
+            "USER": env.str("USER"),
+            "PASSWORD": env.str("PASSWORD"),
+            "HOST": env.str("HOST"),
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",},
+            "TEST": {
+                "NAME": env.str("TEST_NAME"),
+            },
+        }
+    }
 
 
 # Password validation
