@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     # Mysite apps
     "home.apps.HomeConfig",
     "ads.apps.AdsConfig",
@@ -103,7 +104,9 @@ else:
             "USER": env.str("USER"),
             "PASSWORD": env.str("PASSWORD"),
             "HOST": env.str("HOST"),
-            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",},
+            "OPTIONS": {
+                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
             "TEST": {
                 "NAME": env.str("TEST_NAME"),
             },

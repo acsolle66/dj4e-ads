@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
   {% include 'navbar.html' %}
   <div style="width: 90%; margin: auto;">
     <div class="card">
       <div class="card-body">
         <span style="float: right;font-size: small;">
-          ({{ ad.created_at|timesince }} ago){% if ad.owner == user %}
+          ({{ ad.created_at|naturaltime }}){% if ad.owner == user %}
             <a href="{% url 'ads:ad_update' ad.pk %}">Update</a> | <a href="{% url 'ads:ad_delete' ad.pk %}">Delete</a>
           {% endif %}
         </span>
