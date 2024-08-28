@@ -1,3 +1,4 @@
+{% load app_tags %}
 <nav class="navbar navbar-expand-lg shadow-sm mb-3" style="background-color: #123524;">
   <div class="container-fluid justify-content-between">
     <a class="navbar-brand" style="color: white;" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'" href="{% url 'ads:ads_list' %}">AdsList</a>
@@ -8,7 +9,7 @@
     </ul>
     {% if user.is_authenticated %}
       <div class="nav-item dropdown">
-        <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">{{ user }}</a>
+        <a class="dropdown-toggle text-decoration-none" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="true" data-bs-reference="parent" onMouseOver="this.style.color='silver'" onMouseOut="this.style.color='white'">{{ user }} <img style="width: 28px;" src="{{ user|gravatar:80 }}" /> <b class="caret"></b></a>
         <ul class="dropdown-menu dropdown-menu-end" style="border-radius: 5px; border-color: black;">
           <li>
             <a class="dropdown-item text-decoration-none" href="{% url 'ads:ads_create' %}" style="color: #414a4c;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#414a4c'">Create Ad</a>
