@@ -7,8 +7,10 @@
       <p>Are you sure you want to delete the ad: {{ ad.title }}</p>
       <form method="post">
         {% csrf_token %}
-        <input type="submit" class="btn btn-primary" value="Yes, delete." />
-        <a href="/ads" class="btn btn-secondary">Cancel</a>
+        <div class="d-flex justify-content-center">
+          <input type="submit" class="btn btn-danger me-2" value="Yes, delete." />
+          <a href="" class="btn btn-primary ms-2" onclick="history.go(-1); return false;">Don't delete.</a>
+        </div>
       </form>
     </div>
   </div>

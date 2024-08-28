@@ -6,8 +6,8 @@
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <input type="submit" class="btn btn-primary" value="Submit" />
-      <a href="/ads" class="btn btn-secondary">Cancel</a>
+      <input type="submit" class="btn btn-success" value="Submit" />
+      <a href="" class="btn btn-primary" onclick="history.go(-1); return false;">Cancel</a>
     </form>
   </div>
 {% endblock %}
