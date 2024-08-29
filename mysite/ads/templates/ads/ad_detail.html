@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% block content %}
+  {% if ad.img_content_type %}
+    <div id="overlay" class="overlay" style="text-align: center;" onclick="document.getElementById('overlay').style.display = 'none';">
+      <img style="margin-top:10vh; max-height: auto%; width: 50%; border:1px solid black;" src="{% url 'ads:ad_picture' ad.pk %}" />
+    </div>
+  {% endif %}
   {% include 'navbar.html' %}
   <div class="d-flex justify-content-center">
     <div class="card container-sm m-3" style="border-color: black; border-radius: 0; box-shadow: 5px 5px silver;">
       <div class="card-body">
         <span style="float: right;font-size: small;">
           ({{ ad.updated_at|naturaltime }})&ensp;{% if ad.owner == user %}
-            <a href="{% url 'ads:ad_update' ad.pk %}"><i class="bi bi-pen"></i></a> | <a href="{% url 'ads:ad_delete' ad.pk %}"><i class="bi bi-trash3"></i></a>
+            <a href="{% url 'ads:ad_update' ad.pk %}"><i class="bi bi-pen"></i></a> | <a href="{% url 'ads:ad_delete' ad.pk %}"><i class="bi bi-trash3" style="color: red;"></i></a>
           {% endif %}
         </span>
         <h1>{{ ad.title }}</h1>
+        {% if ad.img_content_type %}
+          <img class="pb-2" style="float:right; max-width:40%;" src="{% url 'ads:ad_picture' ad.pk %}" onclick="document.getElementById('overlay').style.display = 'block';" />
+        {% endif %}
         <p>{{ ad.text }}</p>
         <p>Price: ${{ ad.price }}</p>
-        <a href="{% url 'ads:ads_list' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'ads:ads_list' %}" style="position: absolute; bottom: 20px;" class="btn btn-secondary">Back</a>
       </div>
     </div>
   </div>

@@ -16,9 +16,9 @@ def ads_list_view(request: HttpRequest) -> HttpResponse:
 @login_required()
 def ads_create_view(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
-        form = AdForm(request.POST)
+        form = AdForm(request.POST, request.FILES or None)
         if form.is_valid():
-            form = form.save(commit=False)
+            form: Ad = form.save(commit=False)
             form.owner = request.user
             form.save()
             return HttpResponseRedirect(reverse("ads:ads_list"))
@@ -44,7 +44,7 @@ def ad_update(request: HttpRequest, pk: int):
         return HttpResponseRedirect(reverse("ads:ads_list"))
     else:
         if request.method == "POST":
-            form = AdForm(request.POST, instance=object)
+            form = AdForm(request.POST, request.FILES or None, instance=object)
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(reverse("ads:ads_list"))
@@ -67,3 +67,13 @@ def ad_delete(request: HttpRequest, pk: int) -> HttpResponse:
             object.delete()
             return HttpResponseRedirect(reverse("ads:ads_list"))
         return TemplateResponse(request, "ads/ad_delete.html", {"ad": object})
+
+
+def stream_file(request, pk):
+    instance: Ad = get_object_or_404(Ad, id=pk)
+    img: bytes | None = instance.img
+    response = HttpResponse()
+    response["Content-Type"] = instance.img_content_type
+    response["Content-Length"] = len(img)
+    response.write(img)
+    return response

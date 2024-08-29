@@ -9,4 +9,5 @@ urlpatterns = [
     path("ad/<int:pk>/", views.ads_detail_view, name="ads_detail"),
     path("ad/<int:pk>/update/", views.ad_update, name="ad_update"),
     path("ad/<int:pk>/delete/", views.ad_delete, name="ad_delete"),
+    path("ad/picture/<int:pk>/", views.stream_file, name="ad_picture"),
 ]

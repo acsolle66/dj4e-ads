@@ -3,11 +3,23 @@
   {% include 'navbar.html' %}
   {% load crispy_forms_tags %}
   <div class="d-flex justify-content-center">
-    <form method="post">
+    <form method="post" id="upload_form" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy }}
       <input type="submit" class="btn btn-success" value="Submit" />
       <a href="" class="btn btn-primary" onclick="history.go(-1); return false;">Cancel</a>
     </form>
   </div>
+  <script>
+    document.getElementById("upload_form").addEventListener("submit", function() {
+      console.log('Checking file size');
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+          var file = document.getElementById('id_{{ form.upload_field_name }}').files[0];
+          if (file && file.size > {{ form.img_max_upload_limit }} ) {
+              alert("File " + file.name + " of type " + file.type + " must be < {{ form.img_max_upload_limit_text }}");
+          return false;
+        }
+      }
+    });
+    </script>
 {% endblock %}
