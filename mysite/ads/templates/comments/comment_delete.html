@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% include 'navbar.html' %}
+  {% load crispy_forms_tags %}
+  <div class="d-flex justify-content-center">
+    <div class="card border-danger mb-3 p-2">
+      <div class="card-body">
+        <h2 class="card-title text-danger">WARNING</h2>
+        <p class="card-text">Are you sure you want to delete your comment?</p>
+        <p>
+          <em>,,{{ comment.text|truncatewords:4 }}''</em>
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-danger me-2" value="Yes, delete." />
+            <a href="" class="btn btn-primary ms-2" onclick="history.go(-1); return false;">Don't delete.</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

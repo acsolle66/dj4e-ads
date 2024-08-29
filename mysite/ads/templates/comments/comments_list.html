@@ -1,0 +1,23 @@
+{% load humanize %}
+<div class="d-flex justify-content-center">
+  <div class="card container-sm m-3" style="border-color: black; border-radius: 0;">
+    <div class="card-body">
+      <h2>Comments</h2>
+      {% if not comments %}
+        <p>Be the first to comment this ad.</p>
+      {% endif %}
+      {% for comment in comments %}
+        <div class="card m-3 p-2" style="border-color: black; border-radius: 0;">
+          <p>
+            <span class="fw-bolder">{{ comment.owner }}</span>&ensp;<span class="fst-italic" style="font-size: small">({{ comment.updated_at|naturaltime }})</span>
+            {% if comment.owner == user %}
+              <span style="float: right;font-size: small;"><a href=""><i class="bi bi-pen"></i></a> | <a href="{% url 'ads:comment_delete' comment.id %}"><i class="bi bi-trash3" style="color: red;"></i></a></span>
+            {% endif %}
+          </p>
+          <p class="">{{ comment.text }}</p>
+          <p>{{ comment.id }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

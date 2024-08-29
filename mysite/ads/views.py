@@ -1,8 +1,10 @@
+from ast import arg
+from django.db.models.manager import BaseManager
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from ads.models import Ad
+from ads.models import Ad, Comment
 from ads.forms import AdForm
 from django.shortcuts import get_object_or_404
 
@@ -28,9 +30,14 @@ def ads_create_view(request: HttpRequest) -> HttpResponse:
 
 
 def ads_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
-    object = get_object_or_404(Ad, pk=pk)
+    ad: Ad = get_object_or_404(Ad, pk=pk)
+    comments: BaseManager[Comment] = Comment.objects.filter(ad=ad).order_by(
+        "-created_at"
+    )
 
-    return TemplateResponse(request, "ads/ad_detail.html", {"ad": object})
+    return TemplateResponse(
+        request, "ads/ad_detail.html", {"ad": ad, "comments": comments}
+    )
 
 
 def ad_update(request: HttpRequest, pk: int):
@@ -69,6 +76,7 @@ def ad_delete(request: HttpRequest, pk: int) -> HttpResponse:
         return TemplateResponse(request, "ads/ad_delete.html", {"ad": object})
 
 
+# FOR IMAGE UPLOAD
 def stream_file(request, pk):
     instance: Ad = get_object_or_404(Ad, id=pk)
     img: bytes | None = instance.picture
@@ -77,3 +85,26 @@ def stream_file(request, pk):
     response["Content-Length"] = len(img)
     response.write(img)
     return response
+
+
+# FOR COMMENTS
+def comment_delete(request: HttpRequest, pk) -> TemplateResponse:
+    comment: Comment = get_object_or_404(Comment, id=pk)
+    ad_id = comment.ad.pk
+    redirect_url: str = reverse("ads:ads_detail", args=[ad_id])
+
+    # Check if user is logged in
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(redirect_url)
+
+    # Check if user owns the model object
+    if comment.owner != request.user:
+        return HttpResponseRedirect(redirect_url)
+
+    else:
+        if request.method == "POST":
+            comment.delete()
+            return HttpResponseRedirect(redirect_url)
+        return TemplateResponse(
+            request, "comments/comment_delete.html", {"comment": comment}
+        )
