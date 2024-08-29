@@ -16,7 +16,7 @@ class Ad(models.Model):
     text = models.TextField()
     owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     # Ad picture
-    img = models.BinaryField(null=True, blank=True, editable=True)
+    picture = models.BinaryField(null=True, blank=True, editable=True)
     img_content_type = models.CharField(
         max_length=256, null=True, blank=True, help_text="The MIMEType of the file"
     )

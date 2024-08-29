@@ -71,7 +71,7 @@ def ad_delete(request: HttpRequest, pk: int) -> HttpResponse:
 
 def stream_file(request, pk):
     instance: Ad = get_object_or_404(Ad, id=pk)
-    img: bytes | None = instance.img
+    img: bytes | None = instance.picture
     response = HttpResponse()
     response["Content-Type"] = instance.img_content_type
     response["Content-Length"] = len(img)
