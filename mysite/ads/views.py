@@ -117,8 +117,12 @@ def comment_create(request: HttpRequest, pk) -> HttpResponse:
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.ad = get_object_or_404(Ad, id=pk)
-            comment.owner = request.user
+            comment_text = comment_form.cleaned_data["comment"]
+            comment_ad = get_object_or_404(Ad, id=pk)
+            comment_owner = request.user
+
+            comment: Comment = Comment(
+                text=comment_text, owner=comment_owner, ad=comment_ad
+            )
             comment.save()
         return HttpResponseRedirect(reverse("ads:ads_detail", args=[pk]))
