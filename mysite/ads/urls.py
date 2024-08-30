@@ -10,5 +10,6 @@ urlpatterns = [
     path("ad/<int:pk>/update/", views.ad_update, name="ad_update"),
     path("ad/<int:pk>/delete/", views.ad_delete, name="ad_delete"),
     path("ad/picture/<int:pk>/", views.stream_file, name="ad_picture"),
+    path("ad/<int:pk>/comment/", views.comment_create, name="comment_create"),
     path("ad/comment/<int:pk>/delete/", views.comment_delete, name="comment_delete"),
 ]

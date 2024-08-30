@@ -5,7 +5,7 @@ from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from ads.models import Ad, Comment
-from ads.forms import AdForm
+from ads.forms import AdForm, CommentForm
 from django.shortcuts import get_object_or_404
 
 
@@ -34,9 +34,12 @@ def ads_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
     comments: BaseManager[Comment] = Comment.objects.filter(ad=ad).order_by(
         "-created_at"
     )
+    comment_create_form = CommentForm()
 
     return TemplateResponse(
-        request, "ads/ad_detail.html", {"ad": ad, "comments": comments}
+        request,
+        "ads/ad_detail.html",
+        {"ad": ad, "comments": comments, "comment_create_form": comment_create_form},
     )
 
 
@@ -87,8 +90,8 @@ def stream_file(request, pk):
     return response
 
 
-# FOR COMMENTS
-def comment_delete(request: HttpRequest, pk) -> TemplateResponse:
+# INFO: COMMENTS
+def comment_delete(request: HttpRequest, pk) -> HttpResponse:
     comment: Comment = get_object_or_404(Comment, id=pk)
     ad_id = comment.ad.pk
     redirect_url: str = reverse("ads:ads_detail", args=[ad_id])
@@ -108,3 +111,14 @@ def comment_delete(request: HttpRequest, pk) -> TemplateResponse:
         return TemplateResponse(
             request, "comments/comment_delete.html", {"comment": comment}
         )
+
+
+def comment_create(request: HttpRequest, pk) -> HttpResponse:
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.ad = get_object_or_404(Ad, id=pk)
+            comment.owner = request.user
+            comment.save()
+        return HttpResponseRedirect(reverse("ads:ads_detail", args=[pk]))

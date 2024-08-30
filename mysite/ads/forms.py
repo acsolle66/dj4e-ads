@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from ads.models import Ad
+from ads.models import Ad, Comment
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from utils.humanize import naturalsize
 from . import models
@@ -45,3 +45,15 @@ class AdForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text"]
+        widgets = {
+            "text": forms.Textarea(attrs={"rows": 3}),
+        }
+        labels = {
+            "text": "Comment",
+        }
